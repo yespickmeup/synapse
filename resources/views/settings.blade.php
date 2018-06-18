@@ -7,10 +7,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>Settings</h2></div>
                 <div class="panel-body">
-                    <settings-setting inline-template :resource="'{{ json_encode($setting)}}'">
-                        @include('settings.setting')        
-                    </settings-setting>    
-                     @include('settings.banner2')        
+                    <settings-setting :resource="'{{ json_encode($setting)}}'">       
+                    </settings-setting> 
+                   
+                    @include('settings.banner2')        
                 </div>
             </div>
         </div>

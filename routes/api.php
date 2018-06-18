@@ -35,4 +35,11 @@ Route::delete('article/{id}', 'ArticleController@destroy');
 // List Banners
 Route::get('banners', 'BannerController@index');
 
+// List Settings
+Route::get('settings', 'SettingController@index2');
+Route::get('settings2', 'SettingController@index3');
+// Update Basic Settings
+Route::post('settings-update', 'SettingController@update')->name('settings-update');
+Route::post('settings-update-about', 'SettingController@update_about')->name('settings-update-about');
+
 
