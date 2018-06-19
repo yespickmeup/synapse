@@ -18,15 +18,17 @@ window.Vue = require('vue');
 import Toasted from 'vue-toasted';
 import Vue from 'vue'
 import VueQuillEditor from 'vue-quill-editor'
-
+import BootstrapVue from 'bootstrap-vue'
 // require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 Vue.use(VueQuillEditor, /* { default global options } */)
-
 Vue.use(Toasted)
+Vue.use(BootstrapVue);
+
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 Vue.component('example', require('./components/ExampleComponent.vue'));
@@ -35,7 +37,8 @@ Vue.component('navbar', require('./components/Navbar.vue'));
 Vue.component('settings-setting', require('./components/Settings.vue'));
 Vue.component('settings-banner', require('./components/Banner.vue'));
 Vue.component('settings-banner2', require('./components/Banner2.vue'));
-Vue.component('about', require('./components/About.vue'));
+Vue.component('settings-about', require('./components/About.vue'));
+Vue.component('settings-services', require('./components/Services.vue'));
 
 const app = new Vue({
     el: '#app' 

@@ -1,17 +1,16 @@
 @extends('layouts.app')
 
 @section('css')
-<link href="{{ asset('css/trix.css') }}" rel="stylesheet">
-<script src="{{ asset('js/trix.js') }}"></script>
+
 @endsection
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><h2>About Us</h2></div>
+                <div class="panel-heading"><h2>Services</h2></div>
                 <div class="panel-body">   
-                    <settings-about :resource="'{{ json_encode($setting)}}'" :resource_errors="'{{ json_encode($errors)}}'"></settings-about>
+                    <settings-services :resource="'{{ json_encode($services)}}'" :resource_errors="'{{ json_encode($errors)}}'"></settings-services>
                 </div>
             </div>
         </div>

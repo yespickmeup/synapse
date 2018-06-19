@@ -24,10 +24,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Routes for logged-in users
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/settings', 'SettingController@index')->name('settings');
+    Route::get('/admin/settings', 'SettingController@index')->name('admin-settings');
     Route::post('upload', 'UploadController@upload')->name('upload');
     Route::post('upload22', 'UploadController2@upload')->name('upload22');
     Route::post('upload-about', 'UploadAboutController@upload')->name('upload-about');
-    Route::get('/about', 'SettingController@index2')->name('about');
+    Route::get('/admin/about', 'SettingController@index2')->name('admin-about');
+    Route::get('/admin/services', 'ServiceController@index2')->name('admin-services');
 });
 

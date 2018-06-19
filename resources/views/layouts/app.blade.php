@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'SynSoftech') }}</title>
+    <link href="{{ asset('assets/lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -38,9 +39,9 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                            <li><a href="{{ route('settings') }}">Settings</a></li>
-                            <li><a href="{{ route('about') }}">About Us</a></li>
-                            <li><a href="#">Services</a></li>
+                            <li><a href="{{ route('admin-settings') }}">Settings</a></li>
+                            <li><a href="{{ route('admin-about') }}">About Us</a></li>
+                            <li><a href="{{ route('admin-services') }}">Services</a></li>
                             <li><a href="#">Clients</a></li>
                             <li><a href="#">Portfolio</a></li>
                             <li><a href="#">Testimonials</a></li>

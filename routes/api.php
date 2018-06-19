@@ -42,4 +42,8 @@ Route::get('settings2', 'SettingController@index3');
 Route::post('settings-update', 'SettingController@update')->name('settings-update');
 Route::post('settings-update-about', 'SettingController@update_about')->name('settings-update-about');
 
-
+// List Services
+Route::get('services', 'ServiceController@index');
+Route::post('settings-services-add', 'ServiceController@store');
+Route::post('settings-services-update/{id}', 'ServiceController@update');
+Route::delete('settings-services-delete/{id}', 'ServiceController@destroy');
