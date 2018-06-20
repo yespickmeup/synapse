@@ -47,3 +47,9 @@ Route::get('services', 'ServiceController@index');
 Route::post('settings-services-add', 'ServiceController@store');
 Route::post('settings-services-update/{id}', 'ServiceController@update');
 Route::delete('settings-services-delete/{id}', 'ServiceController@destroy');
+
+// List Clients
+Route::get('clients', 'ClientController@index');
+Route::post('settings-clients-add', 'ClientController@store');
+Route::post('settings-clients-update/{id}', 'ClientController@update');
+Route::delete('settings-clients-delete/{id}', 'ClientController@destroy');

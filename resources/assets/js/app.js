@@ -39,6 +39,7 @@ Vue.component('settings-banner', require('./components/Banner.vue'));
 Vue.component('settings-banner2', require('./components/Banner2.vue'));
 Vue.component('settings-about', require('./components/About.vue'));
 Vue.component('settings-services', require('./components/Services.vue'));
+Vue.component('settings-clients', require('./components/Clients.vue'));
 
 const app = new Vue({
     el: '#app' 

@@ -42,7 +42,7 @@
                             <li><a href="{{ route('admin-settings') }}">Settings</a></li>
                             <li><a href="{{ route('admin-about') }}">About Us</a></li>
                             <li><a href="{{ route('admin-services') }}">Services</a></li>
-                            <li><a href="#">Clients</a></li>
+                            <li><a href="{{ route('admin-clients') }}">Clients</a></li>
                             <li><a href="#">Portfolio</a></li>
                             <li><a href="#">Testimonials</a></li>
                             <li><a href="#">Our Team</a></li>

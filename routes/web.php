@@ -30,5 +30,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('upload-about', 'UploadAboutController@upload')->name('upload-about');
     Route::get('/admin/about', 'SettingController@index2')->name('admin-about');
     Route::get('/admin/services', 'ServiceController@index2')->name('admin-services');
+    Route::get('/admin/clients', 'ClientController@index2')->name('admin-clients');
 });
 
