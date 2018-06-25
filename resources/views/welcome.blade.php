@@ -212,9 +212,9 @@
             @foreach($testimonials as $testimonial)
             <div class="testimonial-item">
                 <p>
-                  <img src="{{ asset('assets/img/quote-sign-left.png') }}" class="quote-sign-left" alt="">
+                  <img src="{{ asset('storage/images/quote-sign-left.png') }}" class="quote-sign-left" alt="">
                   {{$testimonial->message}}
-                  <img src="{{ asset('assets/img/quote-sign-right.png') }}" class="quote-sign-right" alt="">
+                  <img src="{{ asset('storage/images/quote-sign-right.png') }}" class="quote-sign-right" alt="">
                 </p>
                 <img src="{{ asset('storage'.$testimonial->photo) }}" class="testimonial-img" alt="">
                 <h3>{{$testimonial->name}}</h3>
