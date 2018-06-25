@@ -11,14 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'HomeController@index2')->name('welcome');
 
 Auth::routes();
 
-
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 
 
@@ -31,5 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/about', 'SettingController@index2')->name('admin-about');
     Route::get('/admin/services', 'ServiceController@index2')->name('admin-services');
     Route::get('/admin/clients', 'ClientController@index2')->name('admin-clients');
+    Route::get('/admin/portfolios', 'PortfolioController@index2')->name('admin-portfolios');
+    Route::get('/admin/testimonials', 'TestimonialController@index2')->name('admin-testimonials');
+    Route::get('/admin/our-team', 'TeamMemberController@index2')->name('admin-team');
 });
 

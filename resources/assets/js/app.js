@@ -40,6 +40,9 @@ Vue.component('settings-banner2', require('./components/Banner2.vue'));
 Vue.component('settings-about', require('./components/About.vue'));
 Vue.component('settings-services', require('./components/Services.vue'));
 Vue.component('settings-clients', require('./components/Clients.vue'));
+Vue.component('settings-portfolios', require('./components/Portfolios.vue'));
+Vue.component('settings-testimonials', require('./components/Testimonials.vue'));
+Vue.component('settings-team', require('./components/Team.vue'));
 
 const app = new Vue({
     el: '#app' 

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Client;
+use App\Testimonial;
 use App\Http\Controllers\UploadController;
-use Illuminate\Support\Facades\Storage;
 
-class ClientController extends Controller
+class TestimonialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +15,13 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
-        return $clients;
+        $testimonials = Testimonial::all();
+        return $testimonials;
     }
     public function index2()
     {
-        $clients = Client::all();
-        return view('settings.clients', compact('clients'));
+        $testimonials = Testimonial::all();
+        return view('settings.testimonials',compact('testimonials'));
     }
     /**
      * Show the form for creating a new resource.
@@ -40,44 +39,29 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, UploadController $upload)
+    public function store(Request $request,UploadController $upload)
     {
-       
         $data = json_decode($request->data);
-        $client = new Client;
-        $client->client_name = $data->client_name;
-        $client->client_contact_no = $data->client_contact_no;
-        $client->client_address = $data->client_address;
-        $client->client_logo = '/images/clients/blank.png';
+        $testimonial = new Testimonial;
+        $testimonial->name = $data->name;
+        $testimonial->company = $data->company;
+        $testimonial->designation = $data->designation;
+        $testimonial->message = $data->message;
+        $testimonial->photo = '/images/testimonials/blank.png';
 
-        
-        if($request->hasFile('client_file')){
-            $file = $request->client_file;
-            $path = "/public/images/clients/";
+        if($request->hasFile('testimonial_file')){
+            $file = $request->testimonial_file;
+            $path = "/public/images/testimonials/";
             $file_path = $upload->uploadFile($file,$path);
             $file_path = str_replace('/public','',$file_path);
-            $client->client_logo = $file_path;
+            $testimonial->photo = $file_path;
         }
-        if($client->save()){
-            return $client;
-        }
-        return 'Failed to add';
-    }
-
-
-
-    public function store2(Request $request)
-    {
-        $client = new Client;
-        $client->client_name = $request->client_name;
-        $client->client_contact_no = $request->client_contact_no;
-        $client->client_address = $request->client_address;
-        $client->client_logo = $request->client_logo;
-        if($client->save()){
-            return $client;
+        if($testimonial->save()){
+            return $testimonial;
         }
         return 'Failed to add';
     }
+
     /**
      * Display the specified resource.
      *
@@ -110,20 +94,21 @@ class ClientController extends Controller
     public function update(Request $request, $id, UploadController $upload)
     {
         $data = json_decode($request->data);
-        $client = Client::findOrFail($id);
-        $client->client_name = $data->client_name;
-        $client->client_contact_no = $data->client_contact_no;
-        $client->client_address = $data->client_address;
-        if($request->hasFile('client_file')){
-            $file = $request->client_file;
-            $path = "/public/images/clients/";
+        $testimonial = Testimonial::findOrFail($id);
+        $testimonial->name = $data->name;
+        $testimonial->company = $data->company;
+        $testimonial->designation = $data->designation;
+        $testimonial->message = $data->message;
+        if($request->hasFile('testimonial_file')){
+            $file = $request->testimonial_file;
+            $path = "/public/images/testimonials/";
             $file_path = $upload->uploadFile($file,$path);
             $file_path = str_replace('/public','',$file_path);
-            $client->client_logo = $file_path;
+            $testimonial->photo = $file_path;
         }
       
-        if($client->save()){
-            return $client;
+        if($testimonial->save()){
+            return $testimonial;
         }
         return 'Failed to update';
     }
@@ -136,9 +121,9 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $client = Client::findOrFail($id);
-        if($client->delete()){
-            return $client;
+        $testimonial = Testimonial::findOrFail($id);
+        if($testimonial->delete()){
+            return $testimonial;
         }
         return 'Failed to delete';
     }

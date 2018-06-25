@@ -53,3 +53,22 @@ Route::get('clients', 'ClientController@index');
 Route::post('settings-clients-add', 'ClientController@store');
 Route::post('settings-clients-update/{id}', 'ClientController@update');
 Route::delete('settings-clients-delete/{id}', 'ClientController@destroy');
+
+// List Porfolio
+Route::get('portfolios', 'PortfolioController@index');
+Route::post('settings-portfolios-add', 'PortfolioController@store');
+Route::post('settings-portfolios-update/{id}', 'PortfolioController@update');
+Route::delete('settings-portfolios-delete/{id}', 'PortfolioController@destroy');
+
+// List Testimonials
+Route::get('testimonials', 'TestimonialController@index');
+Route::post('settings-testimonials-add', 'TestimonialController@store');
+Route::post('settings-testimonials-update/{id}', 'TestimonialController@update');
+Route::delete('settings-testimonials-delete/{id}', 'TestimonialController@destroy');
+
+// List Team Members
+Route::get('teamMembers', 'TeamMemberController@index');
+Route::post('settings-teamMember-add', 'TeamMemberController@store');
+Route::post('settings-teamMember-update/{id}', 'TeamMemberController@update');
+Route::delete('settings-teamMember-delete/{id}', 'TeamMemberController@destroy');
+

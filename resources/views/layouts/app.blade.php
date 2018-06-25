@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img/synapse.ico') }}" rel="icon">
+    <link href="{{ asset('assets/img/synapse.ico') }}" rel="apple-touch-icon">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -43,9 +45,9 @@
                             <li><a href="{{ route('admin-about') }}">About Us</a></li>
                             <li><a href="{{ route('admin-services') }}">Services</a></li>
                             <li><a href="{{ route('admin-clients') }}">Clients</a></li>
-                            <li><a href="#">Portfolio</a></li>
-                            <li><a href="#">Testimonials</a></li>
-                            <li><a href="#">Our Team</a></li>
+                            <li><a href="{{ route('admin-portfolios') }}">Portfolio</a></li>
+                            <li><a href="{{ route('admin-testimonials') }}">Testimonials</a></li>
+                            <li><a href="{{ route('admin-team') }}">Our Team</a></li>
                             <li><a href="#">Messages</a></li>     
                     </ul>
 

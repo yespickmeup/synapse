@@ -10,8 +10,8 @@
   <meta content="" name="description">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link href="{{ asset('assets/img/synapse.ico') }}" rel="icon">
+  <link href="{{ asset('assets/img/synapse.ico') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700" rel="stylesheet">
@@ -30,12 +30,7 @@
   <!-- Main Stylesheet File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
-  <!-- =======================================================
-    Theme Name: Reveal
-    Theme URL: https://bootstrapmade.com/reveal-bootstrap-corporate-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+  
 </head>
 
 <body id="body">
@@ -48,8 +43,8 @@
   <section id="topbar" class="d-none d-lg-block">
     <div class="container clearfix">
       <div class="contact-info float-left">
-        <i class="fa fa-envelope-o"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-        <i class="fa fa-phone"></i> +1 5589 55488 55
+        <i class="fa fa-envelope-o"></i> <a href="mailto:{{$setting->email}}">{{$setting->email}}</a>
+        <i class="fa fa-phone"></i> {{$setting->phone_number}}
       </div>
       <div class="social-links float-right">
         <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -80,14 +75,6 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
-          <li class="menu-has-children"><a href="">Drop Down</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
-          </li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
@@ -100,7 +87,7 @@
   <section id="intro">
 
     <div class="intro-content">
-      <h2>Making <span>your ideas</span><br>happen!</h2>
+      <h3>{{$setting->slogan}}</h3>
       <div>
         <a href="#about" class="btn-get-started scrollto">Get Started</a>
         <a href="#portfolio" class="btn-projects scrollto">Our Projects</a>
@@ -108,11 +95,9 @@
     </div>
 
     <div id="intro-carousel" class="owl-carousel" >
-      <div class="item" style="background-image: url({{ asset('assets/img/intro-carousel/1.jpg') }});"></div>
-      <div class="item" style="background-image: url({{ asset('assets/img/intro-carousel/2.jpg') }});"></div>
-      <div class="item" style="background-image: url({{ asset('assets/img/intro-carousel/3.jpg') }});"></div>
-      <div class="item" style="background-image: url({{ asset('assets/img/intro-carousel/4.jpg') }});"></div>
-      <div class="item" style="background-image: url({{ asset('assets/img/intro-carousel/5.jpg') }});"></div>
+        @foreach ($banners as $banner)
+        <div class="item" style="background-image: url({{ asset('storage'.$banner->banner_img) }});"></div>  
+        @endforeach 
     </div>
 
   </section><!-- #intro -->
@@ -126,18 +111,12 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 about-img">
-          <img src="{{ asset('assets/img/about-img.jpg') }}" alt="">
+          <img src="{{ asset('storage'.$setting->about_img) }}" alt="">
           </div>
 
           <div class="col-lg-6 content">
-            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing</h2>
-            <h3>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>
-
-            <ul>
-              <li><i class="ion-android-checkmark-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="ion-android-checkmark-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="ion-android-checkmark-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-            </ul>
+            <h2>{{$setting->about_title}}</h2>
+            {!! $setting->about_description !!}
 
           </div>
         </div>
@@ -152,43 +131,19 @@
       <div class="container">
         <div class="section-header">
           <h2>Services</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+          <p>{{$setting->services_description}}</p>
         </div>
 
         <div class="row">
-
+          @foreach($services as $service)
           <div class="col-lg-6">
-            <div class="box wow fadeInLeft">
-              <div class="icon"><i class="fa fa-bar-chart"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident etiro rabeta lingo.</p>
+              <div class="box wow fadeInLeft">
+                <div class="icon"><i class="fa {{$service->icon}}"></i></div>
+                <h4 class="title"><a href="">{{$service->title}}</a></h4>
+                <p class="description">{{$service->description}}</p>
+              </div>
             </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="box wow fadeInRight">
-              <div class="icon"><i class="fa fa-picture-o"></i></div>
-              <h4 class="title"><a href="">Dolor Sitema</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata nodera clas.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="box wow fadeInLeft" data-wow-delay="0.2s">
-              <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur trinige zareta lobur trade.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="box wow fadeInRight" data-wow-delay="0.2s">
-              <div class="icon"><i class="fa fa-map"></i></div>
-              <h4 class="title"><a href="">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum rideta zanox satirente madera</p>
-            </div>
-          </div>
-
+          @endforeach
         </div>
 
       </div>
@@ -201,18 +156,15 @@
       <div class="container">
         <div class="section-header">
           <h2>Clients</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+          <p>{{$setting->clients_description}}</p>
         </div>
 
         <div class="owl-carousel clients-carousel">
-          <img src="{{ asset('assets/img/clients/client-1.png') }}" alt="">
-          <img src="{{ asset('assets/img/clients/client-2.png') }}" alt="">
-          <img src="{{ asset('assets/img/clients/client-3.png') }}" alt="">
-          <img src="{{ asset('assets/img/clients/client-4.png') }}" alt="">
-          <img src="{{ asset('assets/img/clients/client-5.png') }}" alt="">
-          <img src="{{ asset('assets/img/clients/client-6.png') }}" alt="">
-          <img src="{{ asset('assets/img/clients/client-7.png') }}" alt="">
-          <img src="{{ asset('assets/img/clients/client-8.png') }}" alt="">
+          @foreach($clients as $client)
+          <img src="{{ asset('storage'.$client->client_logo) }}" alt="">
+          @endforeach
+          
+        
         </div>
 
       </div>
@@ -225,103 +177,25 @@
       <div class="container">
         <div class="section-header">
           <h2>Our Portfolio</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+          <p>{{$setting->portfolio_description}}</p>
         </div>
       </div>
 
       <div class="container-fluid">
         <div class="row no-gutters">
-
+          @foreach($portfolios as $portfolio)
           <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/1.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/1.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 1</h2></div>
-                </div>
-              </a>
+              <div class="portfolio-item wow fadeInUp">
+                <a href="{{ asset('storage'.$portfolio->portfolio_img) }}" class="portfolio-popup">
+                  <img src="{{ asset('storage'.$portfolio->portfolio_img) }}" alt="">
+                  <div class="portfolio-overlay">
+                  <div class="portfolio-info"><h2 class="wow fadeInUp">{{$portfolio->title}}</h2></div>
+                  </div>
+                </a>
+              </div>
             </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/2.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/2.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 2</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/3.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/3.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 3</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/4.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/4.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 4</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/5.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/5.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 5</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/6.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/6.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 6</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/7.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/7.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 7</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="{{ asset('assets/img/portfolio/8.jpg') }}" class="portfolio-popup">
-                <img src="{{ asset('assets/img/portfolio/8.jpg') }}" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 8</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
+          @endforeach
         </div>
-
       </div>
     </section><!-- #portfolio -->
 
@@ -332,71 +206,28 @@
       <div class="container">
         <div class="section-header">
           <h2>Testimonials</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+          <p>{{$setting->testimonials_description}}</p>
         </div>
         <div class="owl-carousel testimonials-carousel">
-
+            @foreach($testimonials as $testimonial)
             <div class="testimonial-item">
-              <p>
-                <img src="{{ asset('assets/img/quote-sign-left.png') }}" class="quote-sign-left" alt="">
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                <img src="{{ asset('assets/img/quote-sign-right.png') }}" class="quote-sign-right" alt="">
-              </p>
-              <img src="{{ asset('assets/img/testimonial-1.jpg') }}" class="testimonial-img" alt="">
-              <h3>Saul Goodman</h3>
-              <h4>Ceo &amp; Founder</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="{{ asset('assets/img/quote-sign-left.png') }}" class="quote-sign-left" alt="">
-                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                <img src="{{ asset('assets/img/quote-sign-right.png') }}" class="quote-sign-right" alt="">
-              </p>
-              <img src="{{ asset('assets/img/testimonial-2.jpg') }}" class="testimonial-img" alt="">
-              <h3>Sara Wilsson</h3>
-              <h4>Designer</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="{{ asset('assets/img/quote-sign-left.png') }}" class="quote-sign-left" alt="">
-                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                <img src="{{ asset('assets/img/quote-sign-right.png') }}" class="quote-sign-right" alt="">
-              </p>
-              <img src="{{ asset('assets/img/testimonial-3.jpg') }}" class="testimonial-img" alt="">
-              <h3>Jena Karlis</h3>
-              <h4>Store Owner</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="{{ asset('assets/img/quote-sign-left.png') }}" class="quote-sign-left" alt="">
-                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                <img src="{{ asset('assets/img/quote-sign-right.png') }}" class="quote-sign-right" alt="">
-              </p>
-              <img src="{{ asset('assets/img/testimonial-4.jpg') }}" class="testimonial-img" alt="">
-              <h3>Matt Brandon</h3>
-              <h4>Freelancer</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="{{ asset('assets/img/quote-sign-left.png') }}" class="quote-sign-left" alt="">
-                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                <img src="{{ asset('assets/img/quote-sign-right.png') }}" class="quote-sign-right" alt="">
-              </p>
-              <img src="{{ asset('assets/img/testimonial-5.jpg') }}" class="testimonial-img" alt="">
-              <h3>John Larson</h3>
-              <h4>Entrepreneur</h4>
-            </div>
+                <p>
+                  <img src="{{ asset('assets/img/quote-sign-left.png') }}" class="quote-sign-left" alt="">
+                  {{$testimonial->message}}
+                  <img src="{{ asset('assets/img/quote-sign-right.png') }}" class="quote-sign-right" alt="">
+                </p>
+                <img src="{{ asset('storage'.$testimonial->photo) }}" class="testimonial-img" alt="">
+                <h3>{{$testimonial->name}}</h3>
+                <h4>{{$testimonial->designation}}</h4>
+              </div>
+            @endforeach
 
         </div>
 
       </div>
     </section><!-- #testimonials -->
 
-    <!--==========================
+    {{-- <!--==========================
       Call To Action Section
     ============================-->
     <section id="call-to-action" class="wow fadeInUp">
@@ -404,7 +235,7 @@
         <div class="row">
           <div class="col-lg-9 text-center text-lg-left">
             <h3 class="cta-title">Call To Action</h3>
-            <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="cta-text">{{$setting->call_to_action}}</p>
           </div>
           <div class="col-lg-3 cta-btn-container text-center">
             <a class="cta-btn align-middle" href="#">Call To Action</a>
@@ -412,7 +243,7 @@
         </div>
 
       </div>
-    </section><!-- #call-to-action -->
+    </section><!-- #call-to-action --> --}}
 
     <!--==========================
       Our Team Section
@@ -423,69 +254,23 @@
           <h2>Our Team</h2>
         </div>
         <div class="row">
+          @foreach($team_members as $team_member)
           <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="{{ asset('assets/img/team-1.jpg') }}" alt=""></div>
-              <div class="details">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
+              <div class="member">
+                <div class="pic"><img src="{{ asset('storage'.$team_member->photo) }}" alt=""></div>
+                <div class="details">
+                  <h4>{{$team_member->name}}</h4>
+                  <span>{{$team_member->designation}}</span>
+                  <div class="social">
+                    <a href="{{$team_member->twitter_account}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                    <a href="{{$team_member->facebook_account}}" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="{{$team_member->google_account}}" target="_blank"><i class="fa fa-google-plus"></i></a>
+                    <a href="{{$team_member->linkedin_account}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="{{ asset('assets/img/team-2.jpg') }}" alt=""></div>
-              <div class="details">
-                <h4>Sarah Jhinson</h4>
-                <span>Product Manager</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="{{ asset('assets/img/team-3.jpg') }}" alt=""></div>
-              <div class="details">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="{{ asset('assets/img/team-4.jpg') }}" alt=""></div>
-              <div class="details">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+          @endforeach
         </div>
 
       </div>
@@ -498,7 +283,7 @@
       <div class="container">
         <div class="section-header">
           <h2>Contact Us</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+          <p>{{$setting->contact_us_description}}</p>
         </div>
 
         <div class="row contact-info">
@@ -507,7 +292,7 @@
             <div class="contact-address">
               <i class="ion-ios-location-outline"></i>
               <h3>Address</h3>
-              <address>A108 Adam Street, NY 535022, USA</address>
+              <address>{{$setting->address}}</address>
             </div>
           </div>
 
@@ -515,7 +300,7 @@
             <div class="contact-phone">
               <i class="ion-ios-telephone-outline"></i>
               <h3>Phone Number</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+              <p><a href="tel:+155895548855">{{$setting->phone_number}}</a></p>
             </div>
           </div>
 
@@ -523,7 +308,7 @@
             <div class="contact-email">
               <i class="ion-ios-email-outline"></i>
               <h3>Email</h3>
-              <p><a href="mailto:info@example.com">info@example.com</a></p>
+              <p><a href="mailto:info@example.com">{{$setting->email}}</a></p>
             </div>
           </div>
 
@@ -569,7 +354,7 @@
   <footer id="footer">
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong>Reveal</strong>. All Rights Reserved
+        &copy; Copyright <strong>Synapse Software Technologies</strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!--
@@ -578,7 +363,7 @@
           Licensing information: https://bootstrapmade.com/license/
           Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Reveal
         -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        {{-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> --}}
       </div>
     </div>
   </footer><!-- #footer -->

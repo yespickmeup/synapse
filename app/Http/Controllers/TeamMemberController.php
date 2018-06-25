@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Client;
+use App\TeamMember;
 use App\Http\Controllers\UploadController;
-use Illuminate\Support\Facades\Storage;
 
-class ClientController extends Controller
+class TeamMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +15,15 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
-        return $clients;
+        $team_members = TeamMember::all();
+        return $team_members;
     }
     public function index2()
     {
-        $clients = Client::all();
-        return view('settings.clients', compact('clients'));
+        $team_members = TeamMember::all();
+        return view('settings.team',compact('team_members'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -40,44 +40,32 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, UploadController $upload)
+    public function store(Request $request,UploadController $upload)
     {
-       
         $data = json_decode($request->data);
-        $client = new Client;
-        $client->client_name = $data->client_name;
-        $client->client_contact_no = $data->client_contact_no;
-        $client->client_address = $data->client_address;
-        $client->client_logo = '/images/clients/blank.png';
+        $team = new TeamMember;
+        $team->name = $data->name;
+        $team->designation = $data->designation;
+        $team->twitter_account = $data->twitter_account;
+        $team->facebook_account = $data->facebook_account;
+        $team->google_account = $data->google_account;
+        $team->linkedin_account = $data->linkedin_account;
 
-        
-        if($request->hasFile('client_file')){
-            $file = $request->client_file;
-            $path = "/public/images/clients/";
+        $team->photo = '/images/team/blank.png';
+
+        if($request->hasFile('team_file')){
+            $file = $request->team_file;
+            $path = "/public/images/team/";
             $file_path = $upload->uploadFile($file,$path);
             $file_path = str_replace('/public','',$file_path);
-            $client->client_logo = $file_path;
+            $team->photo = $file_path;
         }
-        if($client->save()){
-            return $client;
-        }
-        return 'Failed to add';
-    }
-
-
-
-    public function store2(Request $request)
-    {
-        $client = new Client;
-        $client->client_name = $request->client_name;
-        $client->client_contact_no = $request->client_contact_no;
-        $client->client_address = $request->client_address;
-        $client->client_logo = $request->client_logo;
-        if($client->save()){
-            return $client;
+        if($team->save()){
+            return $team;
         }
         return 'Failed to add';
     }
+
     /**
      * Display the specified resource.
      *
@@ -110,20 +98,24 @@ class ClientController extends Controller
     public function update(Request $request, $id, UploadController $upload)
     {
         $data = json_decode($request->data);
-        $client = Client::findOrFail($id);
-        $client->client_name = $data->client_name;
-        $client->client_contact_no = $data->client_contact_no;
-        $client->client_address = $data->client_address;
-        if($request->hasFile('client_file')){
-            $file = $request->client_file;
-            $path = "/public/images/clients/";
+        $team = TeamMember::findOrFail($id);
+        $team->name = $data->name;
+        $team->designation = $data->designation;
+        $team->twitter_account = $data->twitter_account;
+        $team->facebook_account = $data->facebook_account;
+        $team->google_account = $data->google_account;
+        $team->linkedin_account = $data->linkedin_account;
+
+        if($request->hasFile('team_file')){
+            $file = $request->team_file;
+            $path = "/public/images/team/";
             $file_path = $upload->uploadFile($file,$path);
             $file_path = str_replace('/public','',$file_path);
-            $client->client_logo = $file_path;
+            $team->photo = $file_path;
         }
       
-        if($client->save()){
-            return $client;
+        if($team->save()){
+            return $team;
         }
         return 'Failed to update';
     }
@@ -136,9 +128,9 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $client = Client::findOrFail($id);
-        if($client->delete()){
-            return $client;
+        $team = TeamMember::findOrFail($id);
+        if($team->delete()){
+            return $team;
         }
         return 'Failed to delete';
     }
