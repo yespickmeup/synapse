@@ -40,7 +40,7 @@ class TeamMemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,UploadController $upload)
+    public function store(Request $request)
     {
         $data = json_decode($request->data);
         return $data;
