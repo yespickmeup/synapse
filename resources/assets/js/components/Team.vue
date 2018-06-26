@@ -233,7 +233,7 @@ export default {
         axios
           .post("/api/settings-teamMember-add", bodyFormData, config)
           .then(function(response) {
-            console.log(response.data);
+            // console.log(response.data);
             vm.showAlert("Team Member successfully added!", 1);
             setTimeout(function() {
               window.location.reload(true);

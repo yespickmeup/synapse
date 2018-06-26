@@ -42,29 +42,28 @@ class TeamMemberController extends Controller
      */
     public function store(Request $request,UploadController $upload)
     {
-        return $request->all();
-        // $data = json_decode($request->data);
-        // $team = new TeamMember;
-        // $team->name = $data->name;
-        // $team->designation = $data->designation;
-        // $team->twitter_account = $data->twitter_account;
-        // $team->facebook_account = $data->facebook_account;
-        // $team->google_account = $data->google_account;
-        // $team->linkedin_account = $data->linkedin_account;
+        $data = json_decode($request->data);
+        $team = new TeamMember;
+        $team->name = $data->name;
+        $team->designation = $data->designation;
+        $team->twitter_account = $data->twitter_account;
+        $team->facebook_account = $data->facebook_account;
+        $team->google_account = $data->google_account;
+        $team->linkedin_account = $data->linkedin_account;
 
-        // $team->photo = '/images/team/blank.png';
+        $team->photo = '/images/team/blank.png';
 
-        // if($request->hasFile('team_file')){
-        //     $file = $request->team_file;
-        //     $path = "/public/images/team/";
-        //     $file_path = $upload->uploadFile($file,$path);
-        //     $file_path = str_replace('/public','',$file_path);
-        //     $team->photo = $file_path;
-        // }
-        // if($team->save()){
-        //     return $team;
-        // }
-        // return 'Failed to add';
+        if($request->hasFile('team_file')){
+            $file = $request->team_file;
+            $path = "/public/images/team/";
+            $file_path = $upload->uploadFile($file,$path);
+            $file_path = str_replace('/public','',$file_path);
+            $team->photo = $file_path;
+        }
+        if($team->save()){
+            return $team;
+        }
+        return 'Failed to add';
     }
 
     /**
