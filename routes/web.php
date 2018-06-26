@@ -11,20 +11,20 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', 'HomeController@index2')->name('welcome');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 
+
+Route::get('/', 'WelcomeController@index')->name('welcome');
+
+// Auth::routes();
+$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'Auth\LoginController@login');
+$this->post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 // Routes for logged-in users
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/admin/settings', 'SettingController@index')->name('admin-settings');
     Route::post('upload', 'UploadController@upload')->name('upload');
     Route::post('upload22', 'UploadController2@upload')->name('upload22');

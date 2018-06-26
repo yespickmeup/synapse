@@ -7,7 +7,7 @@ use App\Http\Requests\ImageUploadRequest;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 
-class UploadController extends Controller
+class UploadController2 extends Controller
 {
     public function upload(ImageUploadRequest $request){
 
