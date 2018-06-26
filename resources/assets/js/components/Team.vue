@@ -221,9 +221,12 @@ export default {
         photo: '/images/team/blank.png',
         team_file: this.modalInfo.team_file
       });
+      
       let bodyFormData = new FormData();
       bodyFormData.append("data", myData);
       bodyFormData.append("team_file", this. modalInfo.team_file);
+      console.log('myData: '+myData);
+      console.log('bodyFormData: '+bodyFormData);
       if (this.modalInfo.save === "add") {
         var vm = this;
         axios

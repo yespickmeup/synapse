@@ -81642,9 +81642,12 @@ var items = [];
         photo: '/images/team/blank.png',
         team_file: this.modalInfo.team_file
       });
+
       var bodyFormData = new FormData();
       bodyFormData.append("data", myData);
       bodyFormData.append("team_file", this.modalInfo.team_file);
+      console.log('myData: ' + myData);
+      console.log('bodyFormData: ' + bodyFormData);
       if (this.modalInfo.save === "add") {
         var vm = this;
         axios.post("/api/settings-teamMember-add", bodyFormData, config).then(function (response) {
