@@ -109,6 +109,7 @@ export default {
           
         })
         .catch(function(response) {
+          console.log(response);
           vm.showAlert('Failed to add photo',0);
           setTimeout(function(){
               window.location.reload(true);
