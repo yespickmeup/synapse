@@ -106,13 +106,13 @@ class TeamMemberController extends Controller
         $team->google_account = $data->google_account;
         $team->linkedin_account = $data->linkedin_account;
 
-        if($request->hasFile('team_file')){
-            $file = $request->team_file;
-            $path = "/public/images/team/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $team->photo = $file_path;
-        }
+        // if($request->hasFile('team_file')){
+        //     $file = $request->team_file;
+        //     $path = "/public/images/team/";
+        //     $file_path = $upload->uploadFile($file,$path);
+        //     $file_path = str_replace('/public','',$file_path);
+        //     $team->photo = $file_path;
+        // }
       
         if($team->save()){
             return $team;
