@@ -68,7 +68,7 @@ Route::delete('settings-testimonials-delete/{id}', 'TestimonialController@destro
 
 // List Team Members
 Route::get('teamMembers', 'TeamMemberController@index');
-Route::post('settings-teamMember-add', 'TeamMemberController@store');
+
 Route::post('settings-teamMember-update/{id}', 'TeamMemberController@update');
 Route::delete('settings-teamMember-delete/{id}', 'TeamMemberController@destroy');
 

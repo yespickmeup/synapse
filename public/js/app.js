@@ -81651,37 +81651,15 @@ var items = [];
       // console.log('myData: '+myData);
       // console.log('bodyFormData: '+bodyFormData);
       if (this.modalInfo.save === "add") {
-        var _headers2;
-
         var vm = this;
-        // axios
-        //   .post("/api/settings-teamMember-add", bodyFormData, config)
-        //   .then(function(response) {
-        //     // console.log(response.data);
-        //     vm.showAlert("Team Member successfully added!", 1);
-        //     setTimeout(function() {
-        //       window.location.reload(true);
-        //     }, 2000);
-        //   })
-        //   .catch(function(response) {
-        //     console.log(response);
-        //     vm.showAlert("Failed add", 0);
-        //     setTimeout(function() {
-        //       window.location.reload(true);
-        //     }, 2000);
-        //   });
-
-        axios({
-          method: "post",
-          url: "/api/settings-teamMember-add",
-          data: bodyFormData,
-          config: { headers: (_headers2 = { "Content-Type": "multipart/form-data" }, _defineProperty(_headers2, "Content-Type", "application/json;charset=UTF-8"), _defineProperty(_headers2, "Access-Control-Allow-Origin", "*"), _headers2) }
-        }).then(function (response) {
+        axios.post("/settings-teamMember-add", bodyFormData, config).then(function (response) {
+          // console.log(response.data);
           vm.showAlert("Team Member successfully added!", 1);
           setTimeout(function () {
             window.location.reload(true);
           }, 2000);
         }).catch(function (response) {
+          console.log(response);
           vm.showAlert("Failed add", 0);
           setTimeout(function () {
             window.location.reload(true);

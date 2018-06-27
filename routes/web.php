@@ -35,5 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/portfolios', 'PortfolioController@index2')->name('admin-portfolios');
     Route::get('/admin/testimonials', 'TestimonialController@index2')->name('admin-testimonials');
     Route::get('/admin/our-team', 'TeamMemberController@index2')->name('admin-team');
+
+    Route::post('settings-teamMember-add', 'TeamMemberController@store');
 });
 
