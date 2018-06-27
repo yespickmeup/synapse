@@ -49,11 +49,15 @@ class PortfolioController extends Controller
         $portfolio->portfolio_img = '/images/portfolios/blank.png';
 
         if($request->hasFile('portfolio_file')){
-            $file = $request->portfolio_file;
-            $path = "/public/images/portfolios/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $portfolio->portfolio_img = $file_path;
+            // $file = $request->portfolio_file;
+            // $path = "/public/images/portfolios/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $portfolio->portfolio_img = $file_path;
+
+            $imagename = $request->portfolio_file->getClientOriginalName();
+            $request->portfolio_file->storeAs('public/images/portfolios',$imagename);
+            $portfolio->portfolio_img = '/images/portfolios/'.$imagename;
         }
         if($portfolio->save()){
             return $portfolio;
@@ -98,11 +102,15 @@ class PortfolioController extends Controller
         $portfolio->description = $data->description;
         $portfolio->portfolio_type = $data->portfolio_type;
         if($request->hasFile('portfolio_file')){
-            $file = $request->portfolio_file;
-            $path = "/public/images/portfolios/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $portfolio->portfolio_img = $file_path;
+            // $file = $request->portfolio_file;
+            // $path = "/public/images/portfolios/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $portfolio->portfolio_img = $file_path;
+
+            $imagename = $request->portfolio_file->getClientOriginalName();
+            $request->portfolio_file->storeAs('public/images/portfolios',$imagename);
+            $portfolio->portfolio_img = '/images/portfolios/'.$imagename;
         }
       
         if($portfolio->save()){

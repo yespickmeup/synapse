@@ -81647,8 +81647,8 @@ var items = [];
       bodyFormData.append("data", myData);
       bodyFormData.append("team_file", this.modalInfo.team_file);
       bodyFormData.append("_token", myToken.csrfToken);
-      console.log('myData: ' + myData);
-      console.log('bodyFormData: ' + bodyFormData);
+      // console.log('myData: '+myData);
+      // console.log('bodyFormData: '+bodyFormData);
       if (this.modalInfo.save === "add") {
         var vm = this;
         axios.post("/api/settings-teamMember-add", bodyFormData, config).then(function (response) {

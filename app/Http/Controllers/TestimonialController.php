@@ -50,11 +50,15 @@ class TestimonialController extends Controller
         $testimonial->photo = '/images/testimonials/blank.png';
 
         if($request->hasFile('testimonial_file')){
-            $file = $request->testimonial_file;
-            $path = "/public/images/testimonials/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $testimonial->photo = $file_path;
+            // $file = $request->testimonial_file;
+            // $path = "/public/images/testimonials/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $testimonial->photo = $file_path;
+
+            $imagename = $request->testimonial_file->getClientOriginalName();
+            $request->testimonial_file->storeAs('public/images/testimonials',$imagename);
+            $testimonial->photo = '/images/testimonials/'.$imagename;
         }
         if($testimonial->save()){
             return $testimonial;
@@ -100,11 +104,15 @@ class TestimonialController extends Controller
         $testimonial->designation = $data->designation;
         $testimonial->message = $data->message;
         if($request->hasFile('testimonial_file')){
-            $file = $request->testimonial_file;
-            $path = "/public/images/testimonials/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $testimonial->photo = $file_path;
+            // $file = $request->testimonial_file;
+            // $path = "/public/images/testimonials/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $testimonial->photo = $file_path;
+
+            $imagename = $request->testimonial_file->getClientOriginalName();
+            $request->testimonial_file->storeAs('public/images/testimonials',$imagename);
+            $testimonial->photo = '/images/testimonials/'.$imagename;
         }
       
         if($testimonial->save()){

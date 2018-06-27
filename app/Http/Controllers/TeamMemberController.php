@@ -54,11 +54,15 @@ class TeamMemberController extends Controller
         $team->photo = '/images/team/blank.png';
 
         if($request->hasFile('team_file')){
-            $file = $request->team_file;
-            $path = "/public/images/team/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $team->photo = $file_path;
+            // $file = $request->team_file;
+            // $path = "/public/images/team/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $team->photo = $file_path;
+
+            $imagename = $request->team_file->getClientOriginalName();
+            $request->team_file->storeAs('public/images/team',$imagename);
+            $team->photo = '/images/team/'.$imagename;
         }
         if($team->save()){
             return $team;
@@ -107,11 +111,15 @@ class TeamMemberController extends Controller
         $team->linkedin_account = $data->linkedin_account;
 
         if($request->hasFile('team_file')){
-            $file = $request->team_file;
-            $path = "/public/images/team/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $team->photo = $file_path;
+            // $file = $request->team_file;
+            // $path = "/public/images/team/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $team->photo = $file_path;
+
+            $imagename = $request->team_file->getClientOriginalName();
+            $request->team_file->storeAs('public/images/team',$imagename);
+            $team->photo = '/images/team/'.$imagename;
         }
       
         if($team->save()){

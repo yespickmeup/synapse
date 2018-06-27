@@ -52,11 +52,15 @@ class ClientController extends Controller
 
         
         if($request->hasFile('client_file')){
-            $file = $request->client_file;
-            $path = "/public/images/clients/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $client->client_logo = $file_path;
+            // $file = $request->client_file;
+            // $path = "/public/images/clients/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $client->client_logo = $file_path;
+
+            $imagename = $request->client_file->getClientOriginalName();
+            $request->client_file->storeAs('public/images/clients',$imagename);
+            $client->client_logo = '/images/clients/'.$imagename;
         }
         if($client->save()){
             return $client;
@@ -115,11 +119,15 @@ class ClientController extends Controller
         $client->client_contact_no = $data->client_contact_no;
         $client->client_address = $data->client_address;
         if($request->hasFile('client_file')){
-            $file = $request->client_file;
-            $path = "/public/images/clients/";
-            $file_path = $upload->uploadFile($file,$path);
-            $file_path = str_replace('/public','',$file_path);
-            $client->client_logo = $file_path;
+            // $file = $request->client_file;
+            // $path = "/public/images/clients/";
+            // $file_path = $upload->uploadFile($file,$path);
+            // $file_path = str_replace('/public','',$file_path);
+            // $client->client_logo = $file_path;
+
+            $imagename = $request->client_file->getClientOriginalName();
+            $request->client_file->storeAs('public/images/clients',$imagename);
+            $client->client_logo = '/images/clients/'.$imagename;
         }
       
         if($client->save()){
