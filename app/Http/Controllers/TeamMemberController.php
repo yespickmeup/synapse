@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TeamMember;
 use App\Http\Controllers\UploadController;
+use App\Http\Requests\ImageUploadRequest;
 
 class TeamMemberController extends Controller
 {
