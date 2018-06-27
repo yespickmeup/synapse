@@ -81422,8 +81422,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -81627,10 +81625,9 @@ var items = [];
     },
     saveTeamMember: function saveTeamMember() {
       var config = {
-        headers: _defineProperty({
-          "Content-Type": "application/json;charset=UTF-8",
-          "Access-Control-Allow-Origin": "*"
-        }, "Content-Type", "multipart/form-data")
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       };
       var myData = JSON.stringify({
         id: this.modalInfo.id,

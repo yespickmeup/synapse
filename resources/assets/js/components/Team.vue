@@ -206,8 +206,6 @@ export default {
     saveTeamMember() {
       let config = {
         headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "multipart/form-data"
         }
       };
