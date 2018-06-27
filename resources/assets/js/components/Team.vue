@@ -99,7 +99,7 @@
 <script>
 const items = [];
 export default {
-  props: ["resource","resource_errors"],
+  props: ["resource", "resource_errors"],
   data() {
     return {
       items: [],
@@ -110,8 +110,8 @@ export default {
         { key: "name", label: "Name" },
         { key: "designation", label: "Designation" },
         { key: "socials", label: "Socials" },
-        { key: "edit", label: "",thStyle: {width: '60px'} },
-        { key: "delete", label: "",thStyle: {width: '60px'} }
+        { key: "edit", label: "", thStyle: { width: "60px" } },
+        { key: "delete", label: "", thStyle: { width: "60px" } }
       ],
       currentPage: 1,
       perPage: 10,
@@ -121,16 +121,17 @@ export default {
       sortDesc: false,
       sortDirection: "asc",
       filter: null,
-      modalInfo: { 
-          id: "", 
-          name: "", 
-          designation: "",
-          twitter_account: "",
-          facebook_account: "", 
-          google_account: "", 
-          linkedin_account: "", 
-          photo:  '/images/team/blank.png', 
-          save: "add" }
+      modalInfo: {
+        id: "",
+        name: "",
+        designation: "",
+        twitter_account: "",
+        facebook_account: "",
+        google_account: "",
+        linkedin_account: "",
+        photo: "/images/team/blank.png",
+        save: "add"
+      }
     };
   },
   computed: {
@@ -156,37 +157,37 @@ export default {
       data.forEach(team_member => {
         let cl = {
           id: team_member.id,
-          name : team_member.name,
-          designation : team_member.designation,
-          twitter_account : team_member.twitter_account,
-          facebook_account : team_member.facebook_account,
-          google_account : team_member.google_account,
-          linkedin_account : team_member.linkedin_account,
+          name: team_member.name,
+          designation: team_member.designation,
+          twitter_account: team_member.twitter_account,
+          facebook_account: team_member.facebook_account,
+          google_account: team_member.google_account,
+          linkedin_account: team_member.linkedin_account,
           socials: {
-              twitter_account: team_member.twitter_account,
-              facebook_account: team_member.facebook_account,
-              google_account: team_member.google_account,
-              linkedin_account: team_member.linkedin_account
+            twitter_account: team_member.twitter_account,
+            facebook_account: team_member.facebook_account,
+            google_account: team_member.google_account,
+            linkedin_account: team_member.linkedin_account
           },
-          photo : team_member.photo,
-          team_file : ''
+          photo: team_member.photo,
+          team_file: ""
         };
-      
-      team_members.push(cl);
+
+        team_members.push(cl);
       });
       this.items = team_members;
       // console.log(JSON.stringify(services));
     },
     edit(item) {},
     addNewTeamMember() {
-      this.modalInfo.id = '';
-      this.modalInfo.name = '';
-      this.modalInfo.designation = '';
-      this.modalInfo.twitter_account = '';
-      this.modalInfo.facebook_account = '';
-      this.modalInfo.google_account = '';      
-      this.modalInfo.linkedin_account = '';
-      this.modalInfo.photo = '/images/team/blank.png';
+      this.modalInfo.id = "";
+      this.modalInfo.name = "";
+      this.modalInfo.designation = "";
+      this.modalInfo.twitter_account = "";
+      this.modalInfo.facebook_account = "";
+      this.modalInfo.google_account = "";
+      this.modalInfo.linkedin_account = "";
+      this.modalInfo.photo = "/images/team/blank.png";
       this.modalInfo.save = "add";
       $("#myModal").modal();
     },
@@ -207,7 +208,7 @@ export default {
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
           "Access-Control-Allow-Origin": "*",
-          "Content-Type": "multipart/form-data" 
+          "Content-Type": "multipart/form-data"
         }
       };
       let myData = JSON.stringify({
@@ -218,36 +219,54 @@ export default {
         facebook_account: this.modalInfo.facebook_account,
         google_account: this.modalInfo.google_account,
         linkedin_account: this.modalInfo.linkedin_account,
-        photo: '/images/team/blank.png',
+        photo: "/images/team/blank.png",
         team_file: this.modalInfo.team_file
       });
-      
+
       let bodyFormData = new FormData();
       bodyFormData.append("data", myData);
-      bodyFormData.append("team_file", this. modalInfo.team_file);
+      bodyFormData.append("team_file", this.modalInfo.team_file);
       bodyFormData.append("_token", myToken.csrfToken);
       // console.log('myData: '+myData);
       // console.log('bodyFormData: '+bodyFormData);
       if (this.modalInfo.save === "add") {
         var vm = this;
-        axios
-          .post("/api/settings-teamMember-add", bodyFormData, config)
+        // axios
+        //   .post("/api/settings-teamMember-add", bodyFormData, config)
+        //   .then(function(response) {
+        //     // console.log(response.data);
+        //     vm.showAlert("Team Member successfully added!", 1);
+        //     setTimeout(function() {
+        //       window.location.reload(true);
+        //     }, 2000);
+        //   })
+        //   .catch(function(response) {
+        //     console.log(response);
+        //     vm.showAlert("Failed add", 0);
+        //     setTimeout(function() {
+        //       window.location.reload(true);
+        //     }, 2000);
+        //   });
+
+        axios({
+          method: "post",
+          url: "/api/settings-teamMember-add",
+          data: bodyFormData,
+          config: { headers: { "Content-Type": "multipart/form-data","Content-Type": "application/json;charset=UTF-8","Access-Control-Allow-Origin": "*" } }
+        })
           .then(function(response) {
-            // console.log(response.data);
             vm.showAlert("Team Member successfully added!", 1);
             setTimeout(function() {
               window.location.reload(true);
             }, 2000);
           })
           .catch(function(response) {
-            console.log(response);
             vm.showAlert("Failed add", 0);
             setTimeout(function() {
               window.location.reload(true);
             }, 2000);
           });
       } else {
-        
         var vm = this;
         axios
           .post(
@@ -256,7 +275,6 @@ export default {
             config
           )
           .then(function(response) {
-           
             vm.showAlert("Team Member successfully updated!", 1);
             setTimeout(function() {
               window.location.reload(true);
@@ -279,22 +297,22 @@ export default {
           "Access-Control-Allow-Origin": "*"
         }
       };
-      if(confirm("Are you sure you want to continue?")){
+      if (confirm("Are you sure you want to continue?")) {
         axios
-        .delete("/api/settings-teamMember-delete/" + item.id, {}, config)
-        .then(function(response) {
+          .delete("/api/settings-teamMember-delete/" + item.id, {}, config)
+          .then(function(response) {
             vm.showAlert("Team Member successfully deleted!", 1);
             setTimeout(function() {
               window.location.reload(true);
             }, 2000);
-        })
-        .catch(function(response) {
-          console.log(response.data);
-          vm.showAlert("Failed delete", 0);
-          setTimeout(function() {
-            window.location.reload(true);
-          }, 2000);
-        });
+          })
+          .catch(function(response) {
+            console.log(response.data);
+            vm.showAlert("Failed delete", 0);
+            setTimeout(function() {
+              window.location.reload(true);
+            }, 2000);
+          });
       }
     },
     getImage(e) {
@@ -302,7 +320,6 @@ export default {
       let reader = new FileReader();
       reader.readAsDataURL(image);
       reader.onload = e => {
-        
         this.modalInfo.team_file = image;
         document.getElementById("cl" + this.modalInfo.id).src = e.target.result;
         // document.getElementById("submitUpload" + this.modalInfo.id).disabled = false;

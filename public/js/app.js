@@ -81530,7 +81530,7 @@ var items = [];
     return {
       items: [],
       errors: {},
-      fields: [{ key: "id", label: "Id" }, { key: "photo", label: "Photo" }, { key: "name", label: "Name" }, { key: "designation", label: "Designation" }, { key: "socials", label: "Socials" }, { key: "edit", label: "", thStyle: { width: '60px' } }, { key: "delete", label: "", thStyle: { width: '60px' } }],
+      fields: [{ key: "id", label: "Id" }, { key: "photo", label: "Photo" }, { key: "name", label: "Name" }, { key: "designation", label: "Designation" }, { key: "socials", label: "Socials" }, { key: "edit", label: "", thStyle: { width: "60px" } }, { key: "delete", label: "", thStyle: { width: "60px" } }],
       currentPage: 1,
       perPage: 10,
       totalRows: items.length,
@@ -81547,8 +81547,9 @@ var items = [];
         facebook_account: "",
         google_account: "",
         linkedin_account: "",
-        photo: '/images/team/blank.png',
-        save: "add" }
+        photo: "/images/team/blank.png",
+        save: "add"
+      }
     };
   },
 
@@ -81591,7 +81592,7 @@ var items = [];
             linkedin_account: team_member.linkedin_account
           },
           photo: team_member.photo,
-          team_file: ''
+          team_file: ""
         };
 
         team_members.push(cl);
@@ -81601,14 +81602,14 @@ var items = [];
     },
     edit: function edit(item) {},
     addNewTeamMember: function addNewTeamMember() {
-      this.modalInfo.id = '';
-      this.modalInfo.name = '';
-      this.modalInfo.designation = '';
-      this.modalInfo.twitter_account = '';
-      this.modalInfo.facebook_account = '';
-      this.modalInfo.google_account = '';
-      this.modalInfo.linkedin_account = '';
-      this.modalInfo.photo = '/images/team/blank.png';
+      this.modalInfo.id = "";
+      this.modalInfo.name = "";
+      this.modalInfo.designation = "";
+      this.modalInfo.twitter_account = "";
+      this.modalInfo.facebook_account = "";
+      this.modalInfo.google_account = "";
+      this.modalInfo.linkedin_account = "";
+      this.modalInfo.photo = "/images/team/blank.png";
       this.modalInfo.save = "add";
       $("#myModal").modal();
     },
@@ -81639,7 +81640,7 @@ var items = [];
         facebook_account: this.modalInfo.facebook_account,
         google_account: this.modalInfo.google_account,
         linkedin_account: this.modalInfo.linkedin_account,
-        photo: '/images/team/blank.png',
+        photo: "/images/team/blank.png",
         team_file: this.modalInfo.team_file
       });
 
@@ -81650,25 +81651,45 @@ var items = [];
       // console.log('myData: '+myData);
       // console.log('bodyFormData: '+bodyFormData);
       if (this.modalInfo.save === "add") {
+        var _headers2;
+
         var vm = this;
-        axios.post("/api/settings-teamMember-add", bodyFormData, config).then(function (response) {
-          // console.log(response.data);
+        // axios
+        //   .post("/api/settings-teamMember-add", bodyFormData, config)
+        //   .then(function(response) {
+        //     // console.log(response.data);
+        //     vm.showAlert("Team Member successfully added!", 1);
+        //     setTimeout(function() {
+        //       window.location.reload(true);
+        //     }, 2000);
+        //   })
+        //   .catch(function(response) {
+        //     console.log(response);
+        //     vm.showAlert("Failed add", 0);
+        //     setTimeout(function() {
+        //       window.location.reload(true);
+        //     }, 2000);
+        //   });
+
+        axios({
+          method: "post",
+          url: "/api/settings-teamMember-add",
+          data: bodyFormData,
+          config: { headers: (_headers2 = { "Content-Type": "multipart/form-data" }, _defineProperty(_headers2, "Content-Type", "application/json;charset=UTF-8"), _defineProperty(_headers2, "Access-Control-Allow-Origin", "*"), _headers2) }
+        }).then(function (response) {
           vm.showAlert("Team Member successfully added!", 1);
           setTimeout(function () {
             window.location.reload(true);
           }, 2000);
         }).catch(function (response) {
-          console.log(response);
           vm.showAlert("Failed add", 0);
           setTimeout(function () {
             window.location.reload(true);
           }, 2000);
         });
       } else {
-
         var vm = this;
         axios.post("/api/settings-teamMember-update/" + this.modalInfo.id, bodyFormData, config).then(function (response) {
-
           vm.showAlert("Team Member successfully updated!", 1);
           setTimeout(function () {
             window.location.reload(true);
@@ -81712,7 +81733,6 @@ var items = [];
       var reader = new FileReader();
       reader.readAsDataURL(image);
       reader.onload = function (e) {
-
         _this.modalInfo.team_file = image;
         document.getElementById("cl" + _this.modalInfo.id).src = e.target.result;
         // document.getElementById("submitUpload" + this.modalInfo.id).disabled = false;
