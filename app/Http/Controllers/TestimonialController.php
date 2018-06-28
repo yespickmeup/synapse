@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Testimonial;
 use App\Http\Controllers\UploadController;
+use Illuminate\Support\Facades\Storage;
 
 class TestimonialController extends Controller
 {
@@ -39,7 +40,7 @@ class TestimonialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,UploadController $upload)
+    public function store(Request $request)
     {
         $data = json_decode($request->data);
         $testimonial = new Testimonial;
@@ -95,7 +96,7 @@ class TestimonialController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, UploadController $upload)
+    public function update(Request $request, $id)
     {
         $data = json_decode($request->data);
         $testimonial = Testimonial::findOrFail($id);

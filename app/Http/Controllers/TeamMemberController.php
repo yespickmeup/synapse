@@ -101,7 +101,7 @@ class TeamMemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, UploadController $upload)
+    public function update(Request $request, $id)
     {
         $data = json_decode($request->data);
         $team = TeamMember::findOrFail($id);

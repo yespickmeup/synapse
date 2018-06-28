@@ -40,7 +40,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, UploadController $upload)
+    public function store(Request $request)
     {
        
         $data = json_decode($request->data);
@@ -111,7 +111,7 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, UploadController $upload)
+    public function update(Request $request, $id)
     {
         $data = json_decode($request->data);
         $client = Client::findOrFail($id);

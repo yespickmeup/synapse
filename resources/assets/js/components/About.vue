@@ -140,7 +140,7 @@ export default {
           setTimeout(function() {
             window.location.reload(true);
           }, 2000);
-        });
+      });
     },
     cancelUpdate() {
       var data = JSON.parse(this.resource);

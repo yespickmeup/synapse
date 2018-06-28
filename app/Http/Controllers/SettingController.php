@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Setting;
 use App\Http\Requests;
 use App\Http\Resources\Setting as SettingResource;
-
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {

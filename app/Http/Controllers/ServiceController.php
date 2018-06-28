@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
+use Illuminate\Support\Facades\Storage;
+
 class ServiceController extends Controller
 {
     /**
