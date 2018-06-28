@@ -34,7 +34,9 @@ Route::delete('article/{id}', 'ArticleController@destroy');
 
 // List Banners
 Route::get('banners', 'BannerController@index');
-
+Route::post('settings-banners-add', 'BannerController@store');
+Route::post('settings-banners-update/{id}', 'BannerController@update');
+Route::delete('settings-banners-delete/{id}', 'BannerController@destroy');
 // List Settings
 Route::get('settings', 'SettingController@index2');
 Route::get('settings2', 'SettingController@index3');
@@ -68,7 +70,6 @@ Route::delete('settings-testimonials-delete/{id}', 'TestimonialController@destro
 
 // List Team Members
 Route::get('teamMembers', 'TeamMemberController@index');
-
 Route::post('settings-teamMember-update/{id}', 'TeamMemberController@update');
 Route::delete('settings-teamMember-delete/{id}', 'TeamMemberController@destroy');
 

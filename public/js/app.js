@@ -77905,36 +77905,193 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+var items = [];
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["resource", "resource_errors"],
   data: function data() {
     return {
-      banners: {},
+      items: [],
       errors: {},
-      banner: {
+      fields: [{ key: "id", label: "Id", thStyle: { width: "10px" } }, { key: "banner_img", label: "Photo", thStyle: { width: "80%" } }, { key: "edit", label: "", thStyle: { width: "10px" } }, { key: "delete", label: "", thStyle: { width: "10px" } }],
+      currentPage: 1,
+      perPage: 10,
+      totalRows: items.length,
+      pageOptions: [5, 10, 15],
+      sortBy: null,
+      sortDesc: false,
+      sortDirection: "asc",
+      filter: null,
+      modalInfo: {
         id: "",
-        banner_img: "",
-        banner_file: ""
+        banner_img: "/images/team/blank.png",
+        save: "add"
       }
     };
+  },
+
+  computed: {
+    sortOptions: function sortOptions() {
+      // Create an options list from our fields
+      return this.fields.filter(function (f) {
+        return f.sort;
+      }).map(function (f) {
+        return { text: f.label, value: f.key };
+      });
+    }
   },
   created: function created() {
     this.setValues();
   },
 
-  computed: {
-    upload: function upload() {}
-  },
   methods: {
     setValues: function setValues() {
+      var banners = [];
       var data = JSON.parse(this.resource);
       var error = JSON.parse(this.resource_errors);
       var error1 = {
         error_message: data.error
       };
       this.errors = error1;
-      this.banners = data;
+      data.forEach(function (banner) {
+        var cl = {
+          id: banner.id,
+          banner_img: banner.banner_img,
+          banner_file: ""
+        };
+
+        banners.push(cl);
+      });
+      this.items = banners;
+    },
+    edit: function edit(item) {},
+    addNewBanner: function addNewBanner() {
+      this.modalInfo.id = "";
+      this.modalInfo.banner_img = "/images/banners/blank.png";
+      this.modalInfo.save = "add";
+      $("#myModal").modal();
+    },
+    info: function info(item) {
+      this.modalInfo.save = "update";
+      this.modalInfo.id = item.id;
+      this.modalInfo.banner_img = item.banner_img;
+      $("#myModal").modal();
+    },
+    saveBanner: function saveBanner() {
+      var config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      var myData = JSON.stringify({
+        id: this.modalInfo.id,
+        banner_img: "/images/banners/blank.png",
+        banner_file: this.modalInfo.banner_file
+      });
+
+      var bodyFormData = new FormData();
+      bodyFormData.append("data", myData);
+      bodyFormData.append("banner_file", this.modalInfo.banner_file);
+      bodyFormData.append("_token", myToken.csrfToken);
+      if (this.modalInfo.save === "add") {
+        var vm = this;
+        axios.post("/api/settings-banners-add", bodyFormData, config).then(function (response) {
+          console.log(response.data);
+          vm.showAlert("Banner successfully added!", 1);
+          setTimeout(function () {
+            window.location.reload(true);
+          }, 2000);
+        }).catch(function (response) {
+          console.log(response);
+          vm.showAlert("Failed add", 0);
+          setTimeout(function () {
+            window.location.reload(true);
+          }, 2000);
+        });
+      } else {
+        var vm = this;
+        axios.post("/api/settings-banners-update/" + this.modalInfo.id, bodyFormData, config).then(function (response) {
+          vm.showAlert("Banner successfully updated!", 1);
+          setTimeout(function () {
+            window.location.reload(true);
+          }, 2000);
+        }).catch(function (response) {
+          console.log(response.data);
+          vm.showAlert("Failed update", 0);
+          setTimeout(function () {
+            window.location.reload(true);
+          }, 2000);
+        });
+      }
+    },
+    deleteBanner: function deleteBanner(item) {
+      var vm = this;
+      var config = {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          "Access-Control-Allow-Origin": "*"
+        }
+      };
+      if (confirm("Are you sure you want to continue?")) {
+        axios.delete("/api/settings-banners-delete/" + item.id, {}, config).then(function (response) {
+          vm.showAlert("Banner successfully deleted!", 1);
+          setTimeout(function () {
+            window.location.reload(true);
+          }, 2000);
+        }).catch(function (response) {
+          console.log(response.data);
+          vm.showAlert("Failed delete", 0);
+          setTimeout(function () {
+            window.location.reload(true);
+          }, 2000);
+        });
+      }
     },
     getImage: function getImage(e) {
       var _this = this;
@@ -77943,56 +78100,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var reader = new FileReader();
       reader.readAsDataURL(image);
       reader.onload = function (e) {
-        _this.banner.banner_img = e.target.result;
-        _this.banner.banner_file = image;
-        document.getElementById("im" + _this.banner.id).src = e.target.result;
-        document.getElementById("submitUpload" + _this.banner.id).disabled = false;
-        document.getElementById("cancelUpload" + _this.banner.id).disabled = false;
+        _this.modalInfo.banner_file = image;
+        document.getElementById("cl" + _this.modalInfo.id).src = e.target.result;
+        // document.getElementById("submitUpload" + this.modalInfo.id).disabled = false;
+        // document.getElementById("cancelUpload" + this.modalInfo.id).disabled = false;
       };
     },
     passId: function passId(id) {
-      this.banner.id = id;
+      this.modalInfo.id = id;
     },
-    uploadImage: function uploadImage() {
-      var data = {
-        image: this.banner.banner_img
-      };
+    resetModal: function resetModal() {
+      this.modalInfo.title = "";
+      this.modalInfo.content = "";
     },
-    cancelUpload: function cancelUpload(banner) {
-      document.getElementById("im" + this.banner.id).src = "/storage" + banner.banner_img;
-      this.loaded = false;
-    },
-
-
-    processForm: function processForm(banner) {
-      var bodyFormData = new FormData();
-
-      bodyFormData.append("image", this.banner.banner_file);
-      bodyFormData.append("banner_id", this.banner.id);
-      bodyFormData.append("_token", myToken.csrfToken);
-
-      var headers = {
-        // 'X-CSRF-Token': $('meta[name=_token]').attr('content'),
-      };
-      var vm = this;
-      axios({
-        method: "post",
-        url: "/upload",
-        data: bodyFormData,
-        config: { headers: { "Content-Type": "multipart/form-data" } }
-      }).then(function (response) {
-        // console.log("Response: " + response.data);
-        vm.showAlert("Photo successfully added!", 1);
-        setTimeout(function () {
-          window.location.reload(true);
-        }, 2000);
-      }).catch(function (response) {
-        console.log(response);
-        vm.showAlert("Failed to add photo", 0);
-        setTimeout(function () {
-          window.location.reload(true);
-        }, 2000);
-      });
+    onFiltered: function onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
     },
     showAlert: function showAlert(message, status) {
       if (status == 1) {
@@ -78015,40 +78139,179 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    _vm._l(_vm.banners, function(banner) {
-      return _c("div", { key: banner.id }, [
-        _c(
-          "form",
-          {
-            attrs: {
-              enctype: "multipart/form-data",
-              method: "post",
-              id: "f" + banner.id
+    "b-container",
+    { attrs: { fluid: "" } },
+    [
+      _c(
+        "b-table",
+        {
+          attrs: {
+            "show-empty": "",
+            stacked: "md",
+            items: _vm.items,
+            fields: _vm.fields,
+            "current-page": _vm.currentPage,
+            "per-page": _vm.perPage,
+            filter: _vm.filter,
+            "sort-by": _vm.sortBy,
+            "sort-desc": _vm.sortDesc,
+            "sort-direction": _vm.sortDirection,
+            bordered: true
+          },
+          on: {
+            "update:sortBy": function($event) {
+              _vm.sortBy = $event
             },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                _vm.processForm(banner)
+            "update:sortDesc": function($event) {
+              _vm.sortDesc = $event
+            },
+            filtered: _vm.onFiltered
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "banner_img",
+              fn: function(row) {
+                return [
+                  _c("img", {
+                    staticClass: "img-responsive",
+                    staticStyle: {
+                      "min-height": "100px",
+                      "max-height": "100px",
+                      "min-width": "100px",
+                      "max-width": "100px"
+                    },
+                    attrs: { src: "/storage" + row.value }
+                  })
+                ]
+              }
+            },
+            {
+              key: "edit",
+              fn: function(row) {
+                return [
+                  _vm._v("  "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-info btn-sm",
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          _vm.info(row.item)
+                        }
+                      }
+                    },
+                    [_vm._v(" Edit")]
+                  )
+                ]
+              }
+            },
+            {
+              key: "delete",
+              fn: function(row) {
+                return [
+                  _vm._v("     "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm",
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                          _vm.deleteBanner(row.item)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ]
               }
             }
-          },
-          [
-            _c("div", { staticClass: "col-md-4 " }, [
-              _c(
-                "div",
-                { staticClass: "card ", staticStyle: { border: "1px solid" } },
-                [
+          ])
+        },
+        [
+          _c("template", { slot: "table-caption" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary pull-right btn-sm",
+                on: { click: _vm.addNewBanner }
+              },
+              [_vm._v("Add New")]
+            )
+          ])
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            { staticClass: "my-1", attrs: { md: "6" } },
+            [
+              _c("b-pagination", {
+                staticClass: "my-0",
+                attrs: { "total-rows": _vm.totalRows, "per-page": _vm.perPage },
+                model: {
+                  value: _vm.currentPage,
+                  callback: function($$v) {
+                    _vm.currentPage = $$v
+                  },
+                  expression: "currentPage"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "modal fade", attrs: { id: "myModal", role: "dialog" } },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("×")]
+                ),
+                _vm._v(" "),
+                _vm.modalInfo.save === "update"
+                  ? _c("h4", { staticClass: "modal-title" }, [
+                      _vm._v("Edit Banner")
+                    ])
+                  : _c("h4", { staticClass: "modal-title" }, [
+                      _vm._v("Add Banner")
+                    ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Id: " + _vm._s(_vm.modalInfo.id))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group " }, [
+                  _c("label", [_vm._v("Image:")]),
+                  _vm._v(" "),
                   _c("img", {
                     staticClass: "card-img-top img-responsive ",
                     staticStyle: {
-                      "min-height": "200px",
-                      "max-height": "200px",
-                      "min-width": "100%"
+                      "min-height": "35px",
+                      "max-height": "35px",
+                      width: "40%"
                     },
                     attrs: {
-                      id: "im" + banner.id,
-                      src: "/storage" + banner.banner_img,
+                      id: "cl" + _vm.modalInfo.id,
+                      src: "/storage" + _vm.modalInfo.banner_img,
                       alt: "Card image cap"
                     }
                   }),
@@ -78060,7 +78323,7 @@ var render = function() {
                         staticClass: "card-title",
                         staticStyle: { "margin-left": "5px" }
                       },
-                      [_vm._v("Banner: " + _vm._s(banner.banner_img))]
+                      [_vm._v("Source: " + _vm._s(_vm.modalInfo.banner_img))]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -78068,18 +78331,18 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: banner.id,
-                          expression: "banner.id"
+                          value: _vm.modalInfo.id,
+                          expression: "modalInfo.id"
                         }
                       ],
-                      attrs: { type: "hidden", id: "bid", name: "bid" },
-                      domProps: { value: banner.id },
+                      attrs: { type: "hidden", id: "cid", cid: "cid" },
+                      domProps: { value: _vm.modalInfo.id },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(banner, "id", $event.target.value)
+                          _vm.$set(_vm.modalInfo, "id", $event.target.value)
                         }
                       }
                     }),
@@ -78093,41 +78356,8 @@ var render = function() {
                       on: {
                         change: _vm.getImage,
                         click: function($event) {
-                          _vm.passId(banner.id)
+                          _vm.passId(_vm.modalInfo.id)
                         }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-default",
-                        staticStyle: {
-                          "margin-left": "5px",
-                          "margin-bottom": "5px"
-                        },
-                        attrs: {
-                          href: "#",
-                          "aria-disabled": "",
-                          id: "cancelUpload" + banner.id
-                        },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            _vm.cancelUpload(banner)
-                          }
-                        }
-                      },
-                      [_vm._v("Cancel")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "btn btn-success",
-                      attrs: {
-                        type: "submit",
-                        disabled: "",
-                        id: "submitUpload" + banner.id,
-                        value: "Upload"
                       }
                     })
                   ]),
@@ -78144,16 +78374,43 @@ var render = function() {
                         ])
                       })
                     )
-                  ])
-                ]
-              ),
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ])
+              ]),
               _vm._v(" "),
-              _c("br")
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        $event.stopPropagation()
+                        return _vm.saveBanner($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Save")]
+                )
+              ])
             ])
-          ]
-        )
-      ])
-    })
+          ])
+        ]
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
