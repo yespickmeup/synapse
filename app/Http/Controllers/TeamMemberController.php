@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\TeamMember;
 use App\Http\Controllers\UploadController;
 use App\Http\Requests\ImageUploadRequest;
+use Illuminate\Support\Facades\Storage;
 
 class TeamMemberController extends Controller
 {
@@ -41,7 +42,7 @@ class TeamMemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,UploadController $upload)
+    public function store(Request $request)
     {
         $data = json_decode($request->data);
         $team = new TeamMember;
@@ -54,7 +55,17 @@ class TeamMemberController extends Controller
 
         $team->photo = '/images/team/blank.png';
 
-  
+        // if($request->hasFile('team_file')){
+        //     // $file = $request->team_file;
+        //     // $path = "/public/images/team/";
+        //     // $file_path = $upload->uploadFile($file,$path);
+        //     // $file_path = str_replace('/public','',$file_path);
+        //     // $team->photo = $file_path;
+
+        //     $imagename = $request->team_file->getClientOriginalName();
+        //     $request->team_file->storeAs('public/images/team',$imagename);
+        //     $team->photo = '/images/team/'.$imagename;
+        // }
         if($team->save()){
             return $team;
         }
