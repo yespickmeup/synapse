@@ -36,14 +36,12 @@ export default {
       banner: {
         id: "",
         banner_img: "",
-        banner_file:''
+        banner_file: ""
       }
-      
     };
   },
   created() {
     this.setValues();
-   
   },
   computed: {
     upload: function() {}
@@ -66,8 +64,12 @@ export default {
         this.banner.banner_img = e.target.result;
         this.banner.banner_file = image;
         document.getElementById("im" + this.banner.id).src = e.target.result;
-        document.getElementById("submitUpload" + this.banner.id).disabled = false;
-        document.getElementById("cancelUpload" + this.banner.id).disabled = false;
+        document.getElementById(
+          "submitUpload" + this.banner.id
+        ).disabled = false;
+        document.getElementById(
+          "cancelUpload" + this.banner.id
+        ).disabled = false;
       };
     },
     passId(id) {
@@ -79,14 +81,14 @@ export default {
       };
     },
     cancelUpload(banner) {
-      document.getElementById("im" + this.banner.id).src = '/storage'+banner.banner_img;
-      this.loaded=false;
-      
+      document.getElementById("im" + this.banner.id).src =
+        "/storage" + banner.banner_img;
+      this.loaded = false;
     },
- 
+
     processForm: function(banner) {
       let bodyFormData = new FormData();
-      
+
       bodyFormData.append("image", this.banner.banner_file);
       bodyFormData.append("banner_id", this.banner.id);
       bodyFormData.append("_token", myToken.csrfToken);
@@ -102,30 +104,29 @@ export default {
         config: { headers: { "Content-Type": "multipart/form-data" } }
       })
         .then(function(response) {
-          vm.showAlert('Photo successfully added!',1);
-          setTimeout(function(){
-             window.location.reload(true);
+          // console.log("Response: " + response.data);
+          vm.showAlert("Photo successfully added!", 1);
+          setTimeout(function() {
+            window.location.reload(true);
           }, 2000);
-          
         })
         .catch(function(response) {
           console.log(response);
-          vm.showAlert('Failed to add photo',0);
-          setTimeout(function(){
-              window.location.reload(true);
+          vm.showAlert("Failed to add photo", 0);
+          setTimeout(function() {
+            window.location.reload(true);
           }, 2000);
         });
     },
-    showAlert(message,status){
-      if(status==1){
-        this.$toasted.show(message,{type:'success'});
-      }else if(status==0){
-        this.$toasted.show(message,{type:'error'});
-      }else{
-        this.$toasted.show(message,{type:'info'});
+    showAlert(message, status) {
+      if (status == 1) {
+        this.$toasted.show(message, { type: "success" });
+      } else if (status == 0) {
+        this.$toasted.show(message, { type: "error" });
+      } else {
+        this.$toasted.show(message, { type: "info" });
       }
-      
-    },
+    }
   }
 };
 </script>

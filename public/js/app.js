@@ -77915,9 +77915,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       banner: {
         id: "",
         banner_img: "",
-        banner_file: ''
+        banner_file: ""
       }
-
     };
   },
   created: function created() {
@@ -77960,7 +77959,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
     },
     cancelUpload: function cancelUpload(banner) {
-      document.getElementById("im" + this.banner.id).src = '/storage' + banner.banner_img;
+      document.getElementById("im" + this.banner.id).src = "/storage" + banner.banner_img;
       this.loaded = false;
     },
 
@@ -77982,13 +77981,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         data: bodyFormData,
         config: { headers: { "Content-Type": "multipart/form-data" } }
       }).then(function (response) {
-        vm.showAlert('Photo successfully added!', 1);
+        // console.log("Response: " + response.data);
+        vm.showAlert("Photo successfully added!", 1);
         setTimeout(function () {
           window.location.reload(true);
         }, 2000);
       }).catch(function (response) {
         console.log(response);
-        vm.showAlert('Failed to add photo', 0);
+        vm.showAlert("Failed to add photo", 0);
         setTimeout(function () {
           window.location.reload(true);
         }, 2000);
@@ -77996,11 +77996,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     showAlert: function showAlert(message, status) {
       if (status == 1) {
-        this.$toasted.show(message, { type: 'success' });
+        this.$toasted.show(message, { type: "success" });
       } else if (status == 0) {
-        this.$toasted.show(message, { type: 'error' });
+        this.$toasted.show(message, { type: "error" });
       } else {
-        this.$toasted.show(message, { type: 'info' });
+        this.$toasted.show(message, { type: "info" });
       }
     }
   }

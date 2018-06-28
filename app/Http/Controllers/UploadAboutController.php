@@ -19,8 +19,11 @@ class UploadAboutController extends Controller
             $setting_id = $request->setting_id;
             $setting = \App\Setting::findOrFail($setting_id);
             $setting->about_img = '/images/about/'.$imagename;
-            $setting->save();
-            return back();
+            if($setting->save()){
+                return $setting;
+            }
+           
+           
         }
         
         // if($request->hasFile('image')){
