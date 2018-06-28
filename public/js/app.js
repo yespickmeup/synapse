@@ -78021,7 +78021,11 @@ var render = function() {
         _c(
           "form",
           {
-            attrs: { enctype: "multipart/form-data", method: "post" },
+            attrs: {
+              enctype: "multipart/form-data",
+              method: "post",
+              id: "f" + banner.id
+            },
             on: {
               submit: function($event) {
                 $event.preventDefault()

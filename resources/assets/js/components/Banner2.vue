@@ -1,7 +1,7 @@
 <template>
 <div>
 <div v-for="banner in banners" v-bind:key="banner.id" >
-<form @submit.prevent="processForm(banner)" enctype="multipart/form-data" method="post"> 
+<form @submit.prevent="processForm(banner)" enctype="multipart/form-data" method="post" v-bind:id="'f'+banner.id"> 
         <div class="col-md-4 "  >    
             <div class="card " style="border: 1px solid;">
             <img class="card-img-top img-responsive "  v-bind:id="'im'+banner.id" :src="'/storage'+banner.banner_img" alt="Card image cap" style="min-height:200px;max-height:200px;min-width:100%;">
