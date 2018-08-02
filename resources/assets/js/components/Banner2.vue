@@ -167,7 +167,7 @@ export default {
         axios
           .post("/api/settings-banners-add", bodyFormData, config)
           .then(function(response) {
-            console.log(response.data);
+            // console.log(response.data);
             vm.showAlert("Banner successfully added!", 1);
             setTimeout(function() {
               window.location.reload(true);

@@ -43,6 +43,7 @@ Vue.component('settings-clients', require('./components/Clients.vue'));
 Vue.component('settings-portfolios', require('./components/Portfolios.vue'));
 Vue.component('settings-testimonials', require('./components/Testimonials.vue'));
 Vue.component('settings-team', require('./components/Team.vue'));
+Vue.component('settings-messages', require('./components/Messages.vue'));
 
 const app = new Vue({
     el: '#app' 

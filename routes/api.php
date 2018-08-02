@@ -73,3 +73,11 @@ Route::get('teamMembers', 'TeamMemberController@index');
 Route::post('settings-teamMember-update/{id}', 'TeamMemberController@update');
 Route::delete('settings-teamMember-delete/{id}', 'TeamMemberController@destroy');
 
+// List Messages
+Route::get('messages', 'MessageController@index');
+Route::post('message-add', 'MessageController@store');
+Route::post('message-update/{id}', 'MessageController@update');
+Route::delete('message-delete/{id}', 'MessageController@destroy');
+
+
+

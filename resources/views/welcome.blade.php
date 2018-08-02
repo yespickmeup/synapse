@@ -184,12 +184,12 @@
       <div class="container-fluid">
         <div class="row no-gutters">
           @foreach($portfolios as $portfolio)
-          <div class="col-lg-3 col-md-4">
+          <div class="col-lg-4 col-md-3">
               <div class="portfolio-item wow fadeInUp">
                 <a href="{{ asset('storage'.$portfolio->portfolio_img) }}" class="portfolio-popup">
                   <img src="{{ asset('storage'.$portfolio->portfolio_img) }}" alt="">
                   <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">{{$portfolio->title}}</h2></div>
+                  <div class="portfolio-info"><h2 class="wow fadeInUp">{{$portfolio->title}}</h2><br><span>{{$portfolio->description}}</span></div> 
                   </div>
                 </a>
               </div>

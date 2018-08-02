@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Banner;
-
-class BannerController extends Controller
+use App\Message;
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,15 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //Get all banners
-        $banners = Banner::all();
-        return response()->json($banners);
+        //Get all messages
+        $messages = Message::all();
+        return $messages;
+    }
+    public function index2()
+    {
+        //Get all messages
+        $messages = Message::orderBy('name','desc')->get();
+        return view('messages.index', compact('messages'));
     }
 
     /**
@@ -37,15 +42,15 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        $banner = new Banner;
-        $banner->banner_img = '/images/banners/blank.png';
-        if($request->hasFile('banner_file')){
-            $imagename = $request->banner_file->getClientOriginalName();
-            $request->banner_file->storeAs('public/images/banners',$imagename);
-            $banner->banner_img = '/images/banners/'.$imagename;
-        }
-        if($banner->save()){
-            return $banner;
+        // $data = json_decode($request->data);
+        $message = new Message;
+        $message->name = $request->name;
+        $message->email = $request->email;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->status = $request->status;
+        if($message->save()){
+            return $message;
         }
         return 'Failed to add';
     }
@@ -81,21 +86,17 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        if($request->hasFile('banner_file')){
-            $data = json_decode($request->data);
-            $banner = Banner::findOrFail($id);
-            $imagename = $request->banner_file->getClientOriginalName();
-            $request->banner_file->storeAs('public/images/banners',$imagename);
-            $banner->banner_img = '/images/banners/'.$imagename;
-            if($banner->save()){
-                return $banner;
-            }
-            return 'Failed to update';
+        // $data = json_decode($request->data);
+        $message = Message::findOrFail($id);
+        $message->name = $request->name;
+        $message->email = $request->email;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->status = $request->status;
+        if($message->save()){
+            return $message;
         }
-      
-       
-        return 'Failed to upload';
+        return 'Failed to update';
     }
 
     /**
@@ -106,10 +107,10 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        $banner = Banner::findOrFail($id);
-        if($banner->delete()){
-            return $banner;
+        $message = Message::findOrFail($id);
+        if($message->delete()){
+            return $message;
         }
-        return 'Failed to delete';
+        return 'Failed to Delete';
     }
 }

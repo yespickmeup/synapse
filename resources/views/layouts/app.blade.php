@@ -48,7 +48,7 @@
                             <li><a href="{{ route('admin-portfolios') }}">Portfolio</a></li>
                             <li><a href="{{ route('admin-testimonials') }}">Testimonials</a></li>
                             <li><a href="{{ route('admin-team') }}">Our Team</a></li>
-                            <li><a href="#">Messages</a></li>     
+                            <li><a href="{{ route('admin-messages') }}">Messages</a></li>     
                     </ul>
 
                     <!-- Right Side Of Navbar -->
